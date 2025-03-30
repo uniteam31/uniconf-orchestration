@@ -2,7 +2,7 @@
 
 set -e
 
-cd /root/unishare-orchestration
+cd /root/uniconf-orchestration
 
 echo "Pulling latest changes..."
 git pull
