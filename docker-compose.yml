@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  # Для фронта все ENV задаются на этапе сборки контейнера
+  frontend:
+    image: def1s/uniconf-frontend:latest
+    ports:
+      - "3000:80"
+    networks:
+      - app-network
+    restart: always
+
+  # Для бэка все берем из .env
+  backend:
+    image: def1s/uniconf-backend:latest
+    ports:
+      - "8000:5050"
+    env_file:
+      .env
+    depends_on:
+      - mongodb
+    networks:
+      - app-network
+    restart: always
+
+  mongodb:
+    image: mongo:6
+    container_name: mongodb
+    #    ports:
+    #      - "27017:27017"
+    volumes:
+      - mongodb-data:/data/db  # Сохраняем данные в volume
+    networks:
+      - app-network
+    restart: always
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  mongodb-data:
