@@ -14,7 +14,7 @@ services:
   backend:
     image: def1s/uniconf-backend:latest
     ports:
-      - "8000:5050"
+      - "5050:5050"
     env_file:
       .env
     depends_on:
